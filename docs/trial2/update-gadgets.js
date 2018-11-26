@@ -36,10 +36,15 @@ function updateGadget002(click_uri)
     var sparql_val = getSPARQL002().trim();
     sparql_val = sparql_val.replace(/<%URI%>/g, '<'+click_uri+'>');
     var Q = new sgvizler.Query();
-    Q.query(sparql_val)
+    /*Q.query(sparql_val)
        .endpointURL("https://lod4all.net/api/sparql")
        .endpointOutputFormat("json")
        .chartFunction("google.visualization.LineChart")
+       .draw("gadget-002");*/
+    Q.query(sparql_val)
+       .endpointURL("https://lod4all.net/api/sparql")
+       .endpointOutputFormat("json")
+       .chartFunction("google.visualization.AreaChart")
        .draw("gadget-002");
 }
 
