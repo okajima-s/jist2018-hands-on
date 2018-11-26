@@ -34,7 +34,7 @@ SELECT ?date (xsd:decimal(?org_value) as ?value) WHERE {
 } ORDER BY (?date)
     `*/
    
-   var sparql_query = `
+/*   var sparql_query = `
 PREFIX l4a-fin: <http://lod4all.net/ontology/financial/>
 
 SELECT ?date (xsd:decimal(?org_asset) as ?asset)
@@ -45,7 +45,20 @@ SELECT ?date (xsd:decimal(?org_asset) as ?asset)
     ?financial_data l4a-fin:liab ?org_liab .
     BIND(strbefore(?org_date,"T") as ?date)
 } ORDER BY (?date)
-    `
+    `*/
+   
+   var sparql_query = `
+PREFIX l4a-fin: <http://lod4all.net/ontology/financial/>
+
+SELECT ?date ?insolvency WHERE {
+    <%URI%> l4a-fin:data ?financial_data.
+    ?financial_data l4a-fin:date ?org_date .
+    ?financial_data l4a-fin:asset ?org_asset .
+    ?financial_data l4a-fin:liab ?org_liab .
+    BIND(xsd:decimal(xsd:decimal(?asset) - xsd:decimal(?liab)) as ?insolvency)
+    BIND(strbefore(?org_date,"T") as ?date)
+} ORDER BY (?date)
+    ` 
    
     return sparql_query;
 }
