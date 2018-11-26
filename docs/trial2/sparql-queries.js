@@ -87,7 +87,7 @@ SELECT DISTINCT * WHERE {
     return sparql_query;
 }
 
-function getSPARQL003()
+function getSPARQL004()
 {
     var sparql_query = `
 PREFIX l4a-fin: <http://lod4all.net/ontology/financial/>
